@@ -51,6 +51,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.github.zaccalos7</groupId>
+			<artifactId>customExceptions</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -63,6 +69,11 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+						</path>
+						<path>
+							<groupId>io.github.zaccalos7</groupId>
+							<artifactId>customExceptions</artifactId>
+							<version>1.0.0</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
