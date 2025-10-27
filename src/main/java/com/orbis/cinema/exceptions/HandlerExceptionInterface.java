@@ -7,5 +7,5 @@ import com.orbis.exception.annotations.ExceptionRunner;
 public interface HandlerExceptionInterface {
 
     @ExceptionRunner(exceptionClass = "NotValidException", componentModel = "spring")
-    public void runnerNotValidException(String message);
+    void runnerNotValidException(String message);
 }
