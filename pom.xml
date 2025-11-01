@@ -58,7 +58,7 @@
         <dependency>
             <groupId>io.github.zaccalos7</groupId>
             <artifactId>customExceptions</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.2</version>
             <scope>compile</scope>
         </dependency>
 
@@ -94,7 +94,7 @@
                         <path>
                             <groupId>io.github.zaccalos7</groupId>
                             <artifactId>customExceptions</artifactId>
-                            <version>1.0.1</version>
+                            <version>1.0.2</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
