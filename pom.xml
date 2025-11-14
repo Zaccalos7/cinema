@@ -14,22 +14,17 @@
     <packaging>war</packaging>
     <name>cinema</name>
     <description>cinema in localhost</description>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
+
     <properties>
         <java.version>23</java.version>
         <maven.build.timestamp.format>yyyy_MM_dd_HH_mm_ss</maven.build.timestamp.format>
+        <com.orbis.customExceptions.version>1.0.2</com.orbis.customExceptions.version>
+        <liquibase-core-version>4.27.0</liquibase-core-version>
+        <liquibase-maven-plugin-version>4.27.0</liquibase-maven-plugin-version>
+        <liquibase-hibernate6-version>4.33.0</liquibase-hibernate6-version>
+        <spring-boot-starter-data-jpa-version>3.5.7</spring-boot-starter-data-jpa-version>
+        <jakarta.validation-api-version>3.0.2</jakarta.validation-api-version>
+        <javassist-version>3.30.2-GA</javassist-version>
     </properties>
     <dependencies>
         <dependency>
@@ -58,7 +53,7 @@
         <dependency>
             <groupId>io.github.zaccalos7</groupId>
             <artifactId>customExceptions</artifactId>
-            <version>1.0.2</version>
+            <version>${com.orbis.customExceptions.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -76,7 +71,7 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>4.27.0</version>
+            <version>${liquibase-core-version}</version>
         </dependency>
     </dependencies>
 
@@ -94,7 +89,7 @@
                         <path>
                             <groupId>io.github.zaccalos7</groupId>
                             <artifactId>customExceptions</artifactId>
-                            <version>1.0.2</version>
+                            <version>${com.orbis.customExceptions.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -116,7 +111,7 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>4.27.0</version>
+                <version>${liquibase-maven-plugin-version}</version>
                 <configuration>
                     <propertyFile>src/main/resources/liquibase.properties</propertyFile>
                     <diffChangeLogFile>src/main/resources/db/changelog/db.${maven.build.timestamp}_changelog.yml
@@ -128,27 +123,27 @@
                     <dependency>
                         <groupId>org.liquibase</groupId>
                         <artifactId>liquibase-core</artifactId>
-                        <version>4.27.0</version>
+                        <version>${liquibase-core-version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.liquibase.ext</groupId>
                         <artifactId>liquibase-hibernate6</artifactId>
-                        <version>4.33.0</version>
+                        <version>${liquibase-hibernate6-version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-starter-data-jpa</artifactId>
-                        <version>3.5.7</version>
+                        <version>${spring-boot-starter-data-jpa-version}</version>
                     </dependency>
                     <dependency>
                         <groupId>jakarta.validation</groupId>
                         <artifactId>jakarta.validation-api</artifactId>
-                        <version>3.0.2</version>
+                        <version>${jakarta.validation-api-version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.javassist</groupId>
                         <artifactId>javassist</artifactId>
-                        <version>3.30.2-GA</version>
+                        <version>${javassist-version}</version>
                     </dependency>
 
                 </dependencies>
