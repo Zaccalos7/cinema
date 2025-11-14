@@ -1,0 +1,71 @@
+databaseChangeLog:
+- changeSet:
+    id: 1763157525030-1
+    author: zaccalos (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: credentialPK
+            name: pkid
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: password
+            type: VARCHAR(255)
+        tableName: credential
+- changeSet:
+    id: 1763157525030-2
+    author: zaccalos (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: userPK
+            name: pkid
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: nick_name
+            type: VARCHAR(255)
+        - column:
+            name: credential_pkid
+            type: INTEGER
+        tableName: user
+- changeSet:
+    id: 1763157525030-3
+    author: zaccalos (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: credential_pkid
+        constraintName: UC_USERCREDENTIAL_PKID_COL
+        tableName: user
+- changeSet:
+    id: 1763157525030-4
+    author: zaccalos (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: credential_pkid
+        baseTableName: user
+        constraintName: FKgu94q96abnycso98ggeohf7yt
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: pkid
+        referencedTableName: credential
+        validate: true
+
