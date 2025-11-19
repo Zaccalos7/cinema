@@ -29,7 +29,7 @@ spring:
           format_sql: true
           dialect: org.hibernate.dialect.PostgresSQLDialect
   liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yml
+    change-log: classpath:db/changelog/db.changelog-master.yaml
     enabled: true
 
   output:
@@ -39,7 +39,7 @@ spring:
 springdoc:
   api-docs:
     path: /documentazione
-    packages-to-scan: it.maggioli.processi_service.controllers
+    packages-to-scan: com.orbis.cinema.restController
     title: "Cinema"
     version: "OPENAPI_3_0"
   swagger-ui:
