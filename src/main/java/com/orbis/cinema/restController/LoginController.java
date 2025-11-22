@@ -4,8 +4,8 @@ import com.orbis.cinema.component.LoggerMessageComponent;
 import com.orbis.cinema.inputRequest.RegisterRecord;
 import com.orbis.cinema.responseHandler.ResponseHandler;
 import com.orbis.cinema.service.LoginService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class LoginController {
     private final LoggerMessageComponent loggerMessageComponent;
 
     @PostMapping("register")
-    public ResponseEntity<Map<String, String>> register(@RequestBody RegisterRecord registerRecord){
+    public ResponseEntity<Map<String, String>> register(@Valid @RequestBody RegisterRecord registerRecord){
         ResponseEntity<Map<String, String>> mapResponseEntity;
         String message;
         boolean response = loginService.register(registerRecord);
