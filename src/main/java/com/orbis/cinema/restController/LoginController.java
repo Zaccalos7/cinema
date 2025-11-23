@@ -2,7 +2,7 @@ package com.orbis.cinema.restController;
 
 import com.orbis.cinema.component.LoggerMessageComponent;
 import com.orbis.cinema.inputRequest.RegisterRecord;
-import com.orbis.cinema.responseHandler.ResponseHandler;
+import com.orbis.cinema.handler.ResponseHandler;
 import com.orbis.cinema.service.LoginService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
