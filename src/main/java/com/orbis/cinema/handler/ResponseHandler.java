@@ -1,4 +1,4 @@
-package com.orbis.cinema.responseHandler;
+package com.orbis.cinema.handler;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
