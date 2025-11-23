@@ -2,11 +2,14 @@ package com.orbis.cinema.model;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
 @Data
 @Entity
+@Builder
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
