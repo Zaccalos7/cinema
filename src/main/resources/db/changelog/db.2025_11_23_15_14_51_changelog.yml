@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1763157525030-1
+    id: 1763910893485-1
     author: zaccalos (generated)
     changes:
     - createTable:
@@ -10,7 +10,7 @@ databaseChangeLog:
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: credentialPK
+              primaryKeyName: credentialsPK
             name: pkid
             type: INTEGER
         - column:
@@ -23,9 +23,9 @@ databaseChangeLog:
               nullable: false
             name: password
             type: VARCHAR(255)
-        tableName: credential
+        tableName: credentials
 - changeSet:
-    id: 1763157525030-2
+    id: 1763910893485-2
     author: zaccalos (generated)
     changes:
     - createTable:
@@ -35,7 +35,7 @@ databaseChangeLog:
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: userPK
+              primaryKeyName: usersPK
             name: pkid
             type: INTEGER
         - column:
@@ -46,26 +46,26 @@ databaseChangeLog:
         - column:
             name: credential_pkid
             type: INTEGER
-        tableName: user
+        tableName: users
 - changeSet:
-    id: 1763157525030-3
+    id: 1763910893485-3
     author: zaccalos (generated)
     changes:
     - addUniqueConstraint:
         columnNames: credential_pkid
-        constraintName: UC_USERCREDENTIAL_PKID_COL
-        tableName: user
+        constraintName: UC_USERSCREDENTIAL_PKID_COL
+        tableName: users
 - changeSet:
-    id: 1763157525030-4
+    id: 1763910893485-4
     author: zaccalos (generated)
     changes:
     - addForeignKeyConstraint:
         baseColumnNames: credential_pkid
-        baseTableName: user
-        constraintName: FKgu94q96abnycso98ggeohf7yt
+        baseTableName: users
+        constraintName: FKgddbqyr1pti7u899of81qvdfi
         deferrable: false
         initiallyDeferred: false
         referencedColumnNames: pkid
-        referencedTableName: credential
+        referencedTableName: credentials
         validate: true
 
