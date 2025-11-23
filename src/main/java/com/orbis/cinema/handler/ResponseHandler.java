@@ -20,8 +20,8 @@ public class ResponseHandler {
 
         String localizedMessage = messageSource.getMessage(code, new Object[]{}, LocaleContextHolder.getLocale());
         response.put("message", localizedMessage);
-        ResponseEntity<Map<String, String>> responseEntity = new ResponseEntity<>(response, status);
-        return responseEntity;
+
+        return new ResponseEntity<>(response, status);
     }
 
 }
