@@ -25,6 +25,8 @@
         <spring-boot-starter-data-jpa-version>3.5.7</spring-boot-starter-data-jpa-version>
         <jakarta.validation-api-version>3.1.0</jakarta.validation-api-version>
         <javassist-version>3.30.2-GA</javassist-version>
+        <spring-security-crypto-version>7.0.0</spring-security-crypto-version>
+        <lombok-version>1.18.34</lombok-version>
     </properties>
     <dependencies>
         <dependency>
@@ -40,7 +42,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>${lombok-version}</version>
         </dependency>
 
         <dependency>
@@ -78,6 +80,21 @@
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase-core-version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>${spring-security-crypto-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+
+
+
     </dependencies>
 
     <build>
@@ -85,12 +102,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+
                 <configuration>
+
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                            <version>${lombok-version}</version>
                         </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.6.3</version>
+                        </path>
+
                         <path>
                             <groupId>io.github.zaccalos7</groupId>
                             <artifactId>customExceptions</artifactId>
