@@ -1,5 +1,6 @@
 package com.orbis.cinema.handler;
 
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,4 +38,16 @@ public class ExceptionsHandler {
 
         return  ResponseEntity.badRequest().body(errorResponse);
     }
+
+    @ExceptionHandler(SQLException.class)
+    public ResponseEntity<Map<String, String>> handleException(SQLException ex){
+        Map<String, String> errorResponse = new HashMap<>();
+
+        String code = "sql error";
+        String errorMessage = ex.getLocalizedMessage();
+        errorResponse.put(code, errorMessage);
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+
 }
