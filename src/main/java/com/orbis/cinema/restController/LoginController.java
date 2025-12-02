@@ -27,21 +27,15 @@ public class LoginController {
     private final LoggerMessageComponent loggerMessageComponent;
 
     @PostMapping("register")
-    public ResponseEntity<Map<String, String>> register(@Valid @RequestBody RegisterRecord registerRecord){
+    public ResponseEntity<Map<String, String>> register(@Valid @RequestBody RegisterRecord registerRecord) {
         ResponseEntity<Map<String, String>> mapResponseEntity;
         String message;
-        boolean response = loginService.register(registerRecord);
 
-        if(response){
-            mapResponseEntity= responseHandler.buildResponse("success.register.response", HttpStatus.CREATED);
-            message = loggerMessageComponent.printMessage("success.register.response");
-            log.info("{} {}", message, HttpStatus.CREATED);
-            return mapResponseEntity;
-        }
+        loginService.register(registerRecord);
 
-        mapResponseEntity= responseHandler.buildResponse("error.register.response", HttpStatus.NOT_ACCEPTABLE);
-        message = loggerMessageComponent.printMessage("error.register.response");
-        log.error("{} {}", message, HttpStatus.NOT_ACCEPTABLE);
+        mapResponseEntity = responseHandler.buildResponse("success.register.response", HttpStatus.CREATED);
+        message = loggerMessageComponent.printMessage("success.register.response");
+        log.info("{} {}", message, HttpStatus.CREATED);
         return mapResponseEntity;
     }
 }

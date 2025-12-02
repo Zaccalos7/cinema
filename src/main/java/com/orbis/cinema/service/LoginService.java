@@ -23,19 +23,17 @@ public class LoginService {
     private final CredentialRepository credentialRepository;
     private final UserMapper userMapper;
 
-    public boolean register(RegisterRecord registerRecord){
-        return makeRegister(registerRecord);
-
+    public void register(RegisterRecord registerRecord){
+        makeRegister(registerRecord);
     }
 
     @Transactional
-    private boolean makeRegister(RegisterRecord registerRecord){
+    private void makeRegister(RegisterRecord registerRecord){
         Credential credential = makeCredential(registerRecord.email(), registerRecord.password());
         User user = makeUser(registerRecord.nickName(), credential);
 
         credentialRepository.save(credential);
         userRepository.save(user);
-        return true;
     }
 
     private Credential makeCredential(String email , String password){
