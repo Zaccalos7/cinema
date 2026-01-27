@@ -1,0 +1,6 @@
+package com.orbis.cinema.inputRequest;
+
+import jakarta.validation.constraints.NotNull;
+
+public record LoginRecord(@NotNull(message = "not.valid.input") String email) {
+}

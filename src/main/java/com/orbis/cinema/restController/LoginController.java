@@ -1,6 +1,7 @@
 package com.orbis.cinema.restController;
 
 import com.orbis.cinema.component.LoggerMessageComponent;
+import com.orbis.cinema.inputRequest.LoginRecord;
 import com.orbis.cinema.inputRequest.RegisterRecord;
 import com.orbis.cinema.handler.ResponseHandler;
 import com.orbis.cinema.service.LoginService;
@@ -42,5 +43,12 @@ public class LoginController {
         message = loggerMessageComponent.printMessage("success.register.response");
         log.info("{} {}", message, HttpStatus.CREATED);
         return mapResponseEntity;
+    }
+
+    @Operation(summary = "Endpoint per il login, tutti i parametri sono required",
+            description = "Creazione del beartoken per l'accesso all'app")
+    @PostMapping("login")
+    public void login(@Valid @RequestBody LoginRecord loginRecord){
+        loginService.login(loginRecord);
     }
 }
