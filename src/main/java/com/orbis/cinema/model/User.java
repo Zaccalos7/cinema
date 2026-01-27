@@ -1,14 +1,15 @@
 package com.orbis.cinema.model;
 
-import jakarta.annotation.Nonnull;
-import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
 
-@Data
+import jakarta.persistence.*;
+import lombok.*;
+
 @Entity
+@Getter
+@Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -21,3 +22,4 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     private Credential credential;
 }
+
