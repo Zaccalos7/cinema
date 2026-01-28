@@ -4,7 +4,8 @@ import com.orbis.cinema.component.LoggerMessageComponent;
 import com.orbis.cinema.inputRequest.LoginRecord;
 import com.orbis.cinema.inputRequest.RegisterRecord;
 import com.orbis.cinema.handler.ResponseHandler;
-import com.orbis.cinema.service.LoginService;
+import com.orbis.cinema.security.AuthenticatorService;
+import com.orbis.cinema.service.RegisterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -26,7 +27,8 @@ import java.util.Map;
 @Tag(name = "Login", description = "API per login e registrazione")
 public class LoginController {
 
-    private final LoginService loginService;
+    private final RegisterService registerService;
+    private final AuthenticatorService authenticatorService;
     private final ResponseHandler responseHandler;
     private final LoggerMessageComponent loggerMessageComponent;
 
@@ -37,7 +39,7 @@ public class LoginController {
         ResponseEntity<Map<String, String>> mapResponseEntity;
         String message;
 
-        loginService.register(registerRecord);
+        registerService.register(registerRecord);
 
         mapResponseEntity = responseHandler.buildResponse("success.register.response", HttpStatus.CREATED);
         message = loggerMessageComponent.printMessage("success.register.response");
@@ -48,7 +50,7 @@ public class LoginController {
     @Operation(summary = "Endpoint per il login, tutti i parametri sono required",
             description = "Creazione del beartoken per l'accesso all'app")
     @PostMapping("login")
-    public void login(@Valid @RequestBody LoginRecord loginRecord){
-        loginService.login(loginRecord);
+    public String login(@Valid @RequestBody LoginRecord loginRecord){
+        return authenticatorService.login(loginRecord);
     }
 }
