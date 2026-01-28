@@ -10,6 +10,7 @@ import com.orbis.cinema.model.Credential;
 import com.orbis.cinema.model.User;
 import com.orbis.cinema.repository.CredentialRepository;
 import com.orbis.cinema.repository.UserRepository;
+import com.orbis.cinema.security.JwtUtilComponent;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +19,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class LoginService {
+public class RegisterService {
 
     private final UserRepository userRepository;
     private final CredentialMapper credentialMapper;
     private final CredentialRepository credentialRepository;
     private final UserMapper userMapper;
+    private final JwtUtilComponent jwtUtilComponent;
 
     public void register(RegisterRecord registerRecord){
         makeRegister(registerRecord);
@@ -65,10 +67,4 @@ public class LoginService {
         return user;
     }
 
-
-    public void login(@Valid LoginRecord loginRecord) {
-        String email = loginRecord.email();
-
-        Credential credential = credentialRepository.findByEmail(email);
-    }
 }
