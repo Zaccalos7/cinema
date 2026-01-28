@@ -28,6 +28,9 @@
         <spring-security-crypto-version>7.0.0</spring-security-crypto-version>
         <lombok-version>1.18.34</lombok-version>
         <springdoc-openapi-starter-webmvc-ui>2.8.5</springdoc-openapi-starter-webmvc-ui>
+        <jjwt-api>0.11.5</jjwt-api>
+        <jjwt-impl>0.11.5</jjwt-impl>
+        <jjwt-jackson>0.11.5</jjwt-jackson>
     </properties>
     <dependencies>
         <dependency>
@@ -99,6 +102,28 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc-openapi-starter-webmvc-ui}</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt-api}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt-impl}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt-jackson}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+
 
     </dependencies>
 
