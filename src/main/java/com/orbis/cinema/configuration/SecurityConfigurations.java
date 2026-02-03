@@ -1,6 +1,7 @@
 package com.orbis.cinema.configuration;
 
 import com.orbis.cinema.component.LoggerMessageComponent;
+import com.orbis.cinema.exceptions.FileReadingException;
 import com.orbis.cinema.exceptions.HandlerExceptionInterface;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,36 +16,34 @@ import java.util.stream.Stream;
 @Configuration
 public class SecurityConfigurations {
 
-    private final HandlerExceptionInterface handlerExceptionInterface;
+
     private final LoggerMessageComponent loggerMessageComponent;
 
-    public SecurityConfigurations(HandlerExceptionInterface handlerExceptionInterface, LoggerMessageComponent loggerMessageComponent) {
-        this.handlerExceptionInterface = handlerExceptionInterface;
+    public SecurityConfigurations( LoggerMessageComponent loggerMessageComponent) {
         this.loggerMessageComponent = loggerMessageComponent;
     }
 
-    public String[] retrievesConfigurations(){
-        String[] configurations = new String[2];
-        configurations[0] = getSignKey();
+    public String retrievesConfigurations(){
+        String configurations = null;
+        configurations = getSignKey();
         return configurations;
     }
 
     private String getSignKey(){
         String signKey = "";
-        Path envPath = Path.of("cinema/.env").toAbsolutePath();
+        Path envPath = Path.of(".env").toAbsolutePath();
 
         try(Stream<String> lines = Files.lines(envPath)){
             signKey = lines
                     .findFirst()
                     .map(line-> line.split("=", 2)[1])
-                    .orElse(handlerExceptionInterface.runnerFileReadingException("file.is.empty"));
+                    .orElseThrow(()-> new FileReadingException("file.is.empty"));
 
             return  signKey;
         } catch (IOException e) {
+            log.error(loggerMessageComponent.printMessage("error.during.reading.file"));
             log.error(e.getMessage(), e);
-            loggerMessageComponent.printMessage("error.during.reading.file");
-            handlerExceptionInterface.runnerFileReadingException("error.during.reading.file");
+            throw new FileReadingException("error.during.reading.file");
         }
-        return signKey;
     }
 }
