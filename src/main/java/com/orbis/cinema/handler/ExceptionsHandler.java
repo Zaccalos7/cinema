@@ -57,9 +57,10 @@ public class ExceptionsHandler {
         Map<String, String> errorResponse = new HashMap<>();
 
         String code = "KO";
-        String errorMessage = ex.getLocalizedMessage();
+        String errorCodeMessage = ex.getLocalizedMessage();
+        String errorMessage = messageSource.getMessage(errorCodeMessage, null, LocaleContextHolder.getLocale());
         errorResponse.put(code, errorMessage);
-        return ResponseEntity.badRequest().body(errorResponse);
+        return ResponseEntity.internalServerError().body(errorResponse);
     }
 
 
