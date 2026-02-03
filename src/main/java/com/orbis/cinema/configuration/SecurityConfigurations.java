@@ -24,13 +24,13 @@ public class SecurityConfigurations {
     }
 
     public String retrievesConfigurations(){
-        String configurations = null;
+        String configurations;
         configurations = getSignKey();
         return configurations;
     }
 
     private String getSignKey(){
-        String signKey = "";
+        String signKey;
         Path envPath = Path.of(".env").toAbsolutePath();
 
         try(Stream<String> lines = Files.lines(envPath)){
