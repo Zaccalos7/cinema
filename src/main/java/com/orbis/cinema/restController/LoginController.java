@@ -51,6 +51,9 @@ public class LoginController {
             description = "Creazione del beartoken per l'accesso all'app")
     @PostMapping("login")
     public String login(@Valid @RequestBody LoginRecord loginRecord){
-        return authenticatorService.login(loginRecord);
+        String bearToken = authenticatorService.login(loginRecord);
+        String successMessage = loggerMessageComponent.printMessage("generated.beartoken");
+        log.info(successMessage);
+        return bearToken;
     }
 }
