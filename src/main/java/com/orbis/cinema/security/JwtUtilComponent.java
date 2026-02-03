@@ -3,10 +3,13 @@ package com.orbis.cinema.security;
 import com.orbis.cinema.configuration.SecurityConfigurations;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Component
@@ -16,8 +19,6 @@ public class JwtUtilComponent {
     private final SecurityConfigurations securityConfigurations;
 
 
-    private static final long EXPIRATION = 1000L * 60 * 60 * 24 * 7 * 30; // 1 mese
-
     public JwtUtilComponent(SecurityConfigurations securityConfigurations) {
         this.securityConfigurations = securityConfigurations;
     }
@@ -25,21 +26,35 @@ public class JwtUtilComponent {
     protected String generateToken(String subject) {
 
         String token;
-        String[] configurations = getValueFromEnv();
-        String SECRET_KEY = configurations[0];
+        String secretKey = getValueFromEnv();
+
+        SecretKey secretKeyHmac = Keys.hmacShaKeyFor(
+                secretKey.getBytes(StandardCharsets.UTF_8)
+        );
+
+        long timestampMillis = System.currentTimeMillis();
+        long expirationDateMillis = getExpiration(timestampMillis);
 
         token = Jwts.builder()
                 .setSubject(subject)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .setExpiration(new Date(expirationDateMillis))
+                .signWith(secretKeyHmac, SignatureAlgorithm.HS256)
                 .compact();
 
         return token;
     }
 
-    private String[] getValueFromEnv(){
-        String[] configurations =  securityConfigurations.retrievesConfigurations();
-        return configurations;
+    private String getValueFromEnv() {
+        return securityConfigurations.retrievesConfigurations();
+    }
+
+    private long getExpiration(long timestampMillis){
+
+        return Instant.ofEpochMilli(timestampMillis)
+                .atZone(ZoneId.systemDefault())
+                .plusMonths(1)
+                .toInstant()
+                .toEpochMilli();
     }
 }
