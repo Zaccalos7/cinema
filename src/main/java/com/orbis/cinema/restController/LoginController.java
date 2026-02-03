@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.security.auth.login.LoginException;
 import java.util.Map;
 
 @Slf4j
@@ -48,11 +49,11 @@ public class LoginController {
     }
 
     @Operation(summary = "Endpoint per il login, tutti i parametri sono required",
-            description = "Creazione del beartoken per l'accesso all'app")
+            description = "Creazione del bearertoken per l'accesso all'app")
     @PostMapping("login")
-    public String login(@Valid @RequestBody LoginRecord loginRecord){
+    public String login(@Valid @RequestBody LoginRecord loginRecord) throws LoginException {
         String bearToken = authenticatorService.login(loginRecord);
-        String successMessage = loggerMessageComponent.printMessage("generated.beartoken");
+        String successMessage = loggerMessageComponent.printMessage("generated.bearertoken");
         log.info(successMessage);
         return bearToken;
     }

@@ -7,6 +7,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.security.auth.login.LoginException;
 
 @RequiredArgsConstructor
 @Service
@@ -15,14 +18,14 @@ public class AuthenticatorService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtilComponent jwtUtilComponent;
 
-    public String login(@Valid LoginRecord loginRecord) {
+    public String login(@Valid LoginRecord loginRecord) throws LoginException {
         String email = loginRecord.email();
         String password = loginRecord.password();
 
-        Credential credential = credentialRepository.findByEmail(email);
+        Credential credential = getEmailFromCredential(email);
 
         if (credential == null) {
-            throw new RuntimeException("Credenziali non valide");
+            throw new LoginException("not.valid.credentials");
         }
 
         boolean match = passwordEncoder.matches(
@@ -31,21 +34,17 @@ public class AuthenticatorService {
         );
 
         if (!match) {
-            throw new RuntimeException("Credenziali non valide");
+            throw new LoginException("not.valid.credentials");
         }
 
-        String bear= null;
-        bear = jwtUtilComponent.generateToken(email);
-        return bear;
+        String bearer = null;
+        bearer = jwtUtilComponent.generateToken(email);
+        return bearer;
     }
 
 
-    private Credential retrivesUserCredentials(String email, String password){
-        Credential credential = credentialRepository.findByEmailAndPassword(email, password);
-
-        if(credential == null){
-
-        }
-        return null;
+    @Transactional(readOnly = true)
+    protected Credential getEmailFromCredential(String email){
+        return credentialRepository.findByEmail(email);
     }
 }
