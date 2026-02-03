@@ -8,6 +8,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+
+
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +46,16 @@ public class ExceptionsHandler {
         Map<String, String> errorResponse = new HashMap<>();
 
         String code = "sql error";
+        String errorMessage = ex.getLocalizedMessage();
+        errorResponse.put(code, errorMessage);
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+    @ExceptionHandler(FileReadingException.class)
+    public ResponseEntity<Map<String, String>> handleException(FileReadingException ex){
+        Map<String, String> errorResponse = new HashMap<>();
+
+        String code = "KO";
         String errorMessage = ex.getLocalizedMessage();
         errorResponse.put(code, errorMessage);
         return ResponseEntity.badRequest().body(errorResponse);
