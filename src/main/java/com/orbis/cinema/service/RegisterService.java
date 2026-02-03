@@ -2,7 +2,6 @@ package com.orbis.cinema.service;
 
 import com.orbis.cinema.dto.CredentialDto;
 import com.orbis.cinema.dto.UserDto;
-import com.orbis.cinema.inputRequest.LoginRecord;
 import com.orbis.cinema.inputRequest.RegisterRecord;
 import com.orbis.cinema.mapping.CredentialMapper;
 import com.orbis.cinema.mapping.UserMapper;
@@ -12,7 +11,6 @@ import com.orbis.cinema.repository.CredentialRepository;
 import com.orbis.cinema.repository.UserRepository;
 import com.orbis.cinema.security.JwtUtilComponent;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
