@@ -4,13 +4,14 @@ package com.orbis.cinema.handler;
 import com.orbis.cinema.exceptions.FileReadingException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
-
+import javax.security.auth.login.LoginException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,9 +20,11 @@ import java.util.Map;
 public class ExceptionsHandler {
 
     private final MessageSource messageSource;
+    private final ResponseHandler responseHandler;
 
-    public ExceptionsHandler(MessageSource messageSource) {
+    public ExceptionsHandler(MessageSource messageSource, ResponseHandler responseHandler) {
         this.messageSource = messageSource;
+        this.responseHandler = responseHandler;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -44,22 +47,25 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(SQLException.class)
     public ResponseEntity<Map<String, String>> handleException(SQLException ex){
-        Map<String, String> errorResponse = new HashMap<>();
-
-        String code = "sql error";
+        Map<String, String> errorResponse;
         String errorMessage = ex.getLocalizedMessage();
-        errorResponse.put(code, errorMessage);
+        errorResponse = responseHandler.buildBadResponse(errorMessage);
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
     @ExceptionHandler(FileReadingException.class)
     public ResponseEntity<Map<String, String>> handleException(FileReadingException ex){
-        Map<String, String> errorResponse = new HashMap<>();
-
-        String code = "KO";
+        Map<String, String> errorResponse;
         String errorCodeMessage = ex.getLocalizedMessage();
-        String errorMessage = messageSource.getMessage(errorCodeMessage, null, LocaleContextHolder.getLocale());
-        errorResponse.put(code, errorMessage);
+        errorResponse = responseHandler.buildBadResponse(errorCodeMessage);
+        return ResponseEntity.internalServerError().body(errorResponse);
+    }
+
+    @ExceptionHandler(LoginException.class)
+    public ResponseEntity<Map<String, String>> handleException(LoginException ex){
+        Map<String, String> errorResponse;
+        String errorCodeMessage = ex.getLocalizedMessage();
+        errorResponse = responseHandler.buildBadResponse(errorCodeMessage);
         return ResponseEntity.internalServerError().body(errorResponse);
     }
 
