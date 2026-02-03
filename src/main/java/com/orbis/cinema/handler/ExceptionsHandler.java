@@ -1,6 +1,7 @@
 package com.orbis.cinema.handler;
 
 
+import com.orbis.cinema.exceptions.FileReadingException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
