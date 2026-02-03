@@ -24,4 +24,13 @@ public class ResponseHandler {
         return new ResponseEntity<>(response, status);
     }
 
+    public Map<String, String> buildBadResponse(String code){
+        Map<String , String> response = new HashMap<>();
+
+        String localizedMessage = messageSource.getMessage(code, new Object[]{}, LocaleContextHolder.getLocale());
+        response.put("error", localizedMessage);
+
+        return response;
+    }
+
 }
