@@ -2,7 +2,6 @@ package com.orbis.cinema.configuration;
 
 import com.orbis.cinema.component.LoggerMessageComponent;
 import com.orbis.cinema.exceptions.FileReadingException;
-import com.orbis.cinema.exceptions.HandlerExceptionInterface;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
