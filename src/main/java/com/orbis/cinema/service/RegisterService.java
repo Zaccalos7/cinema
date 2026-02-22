@@ -25,6 +25,8 @@ public class RegisterService {
     private final UserMapper userMapper;
     private final JwtUtilComponent jwtUtilComponent;
 
+    private static final Boolean HAS_VERIFIED_EMAIL = false;
+
     public void register(RegisterRecord registerRecord){
         makeRegister(registerRecord);
     }
@@ -44,6 +46,7 @@ public class RegisterService {
         CredentialDto credentialDto = CredentialDto.builder()
                 .email(email)
                 .password(passwordEncoded)
+                .hasVerifiedEmail(HAS_VERIFIED_EMAIL)
                 .build();
 
         Credential credential = credentialMapper.toModel(credentialDto);
