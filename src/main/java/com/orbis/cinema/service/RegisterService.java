@@ -9,7 +9,6 @@ import com.orbis.cinema.model.Credential;
 import com.orbis.cinema.model.User;
 import com.orbis.cinema.repository.CredentialRepository;
 import com.orbis.cinema.repository.UserRepository;
-import com.orbis.cinema.security.JwtUtilComponent;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,7 +22,6 @@ public class RegisterService {
     private final CredentialMapper credentialMapper;
     private final CredentialRepository credentialRepository;
     private final UserMapper userMapper;
-    private final JwtUtilComponent jwtUtilComponent;
 
     private static final Boolean HAS_VERIFIED_EMAIL = false;
 
