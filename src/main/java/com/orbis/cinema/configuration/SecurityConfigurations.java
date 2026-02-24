@@ -2,7 +2,6 @@ package com.orbis.cinema.configuration;
 
 import com.orbis.cinema.component.LoggerMessageComponent;
 import com.orbis.cinema.exceptions.FileReadingException;
-import com.orbis.cinema.exceptions.HandlerExceptionInterface;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -41,9 +40,9 @@ public class SecurityConfigurations {
 
             return  signKey;
         } catch (IOException e) {
-            log.error(loggerMessageComponent.printMessage("error.during.reading.file"));
+            log.error(loggerMessageComponent.printMessage("error.during.reading.key"));
             log.error(e.getMessage(), e);
-            throw new FileReadingException("error.during.reading.file");
+            throw new FileReadingException("error.during.reading.key");
         }
     }
 }

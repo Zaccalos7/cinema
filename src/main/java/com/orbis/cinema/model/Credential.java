@@ -18,4 +18,6 @@ public class Credential {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean hasVerifiedEmail=false;
 }

@@ -9,4 +9,5 @@ import lombok.*;
 public class CredentialDto {
     private String email;
     private String password;
+    private Boolean hasVerifiedEmail;
 }
