@@ -1,13 +1,16 @@
 package com.orbis.cinema.handler;
 
 
+import com.orbis.cinema.exceptions.DuplicationEntityException;
 import com.orbis.cinema.exceptions.FileReadingException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
 
 import javax.security.auth.login.LoginException;
@@ -66,6 +69,14 @@ public class ExceptionsHandler {
         String errorCodeMessage = ex.getLocalizedMessage();
         errorResponse = responseHandler.buildBadResponse(errorCodeMessage);
         return ResponseEntity.internalServerError().body(errorResponse);
+    }
+
+    @ExceptionHandler(DuplicationEntityException.class)
+    public ResponseEntity<Map<String, String>> handleException(DuplicationEntityException ex){
+        ResponseEntity<Map<String, String>> errorResponse;
+        String errorCodeMessage = ex.getLocalizedMessage();
+        errorResponse = responseHandler.buildBadResponse(errorCodeMessage, HttpStatus.CONFLICT);
+        return errorResponse;
     }
 
 
