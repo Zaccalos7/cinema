@@ -1,0 +1,116 @@
+databaseChangeLog:
+- changeSet:
+    id: 1772117729719-1
+    author: Utente (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: movie_languagePK
+            name: id
+            type: INTEGER
+        - column:
+            name: language
+            type: VARCHAR(100)
+        - column:
+            constraints:
+              nullable: false
+            name: movie_id
+            type: INTEGER
+        tableName: movie_language
+- changeSet:
+    id: 1772117729719-2
+    author: Utente (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: movie_ratingPK
+            name: id
+            type: INTEGER
+        - column:
+            name: reviewer_name
+            type: VARCHAR(255)
+        - column:
+            name: site
+            type: VARCHAR(255)
+        - column:
+            name: vote
+            type: FLOAT4
+        - column:
+            constraints:
+              nullable: false
+            name: movie_id
+            type: INTEGER
+        tableName: movie_rating
+- changeSet:
+    id: 1772117729719-3
+    author: Utente (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: moviesPK
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: description
+            type: TEXT
+        - column:
+            name: duration_in_minutes
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: original_title
+            type: VARCHAR(512)
+        - column:
+            name: release_date
+            type: TIMESTAMP(6) WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: title
+            type: VARCHAR(512)
+        tableName: movies
+- changeSet:
+    id: 1772117729719-4
+    author: Utente (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: movie_id
+        baseTableName: movie_language
+        constraintName: FKkp0xnu165qesexahkqsr9hkoy
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: movies
+        validate: true
+- changeSet:
+    id: 1772117729719-5
+    author: Utente (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: movie_id
+        baseTableName: movie_rating
+        constraintName: FKrw226r1p47nxbd66d1nsqvte3
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: movies
+        validate: true
+
