@@ -1,7 +1,9 @@
 package com.orbis.cinema.service;
 
+import com.orbis.cinema.component.LoggerMessageComponent;
 import com.orbis.cinema.dto.CredentialDto;
 import com.orbis.cinema.dto.UserDto;
+import com.orbis.cinema.exceptions.DuplicationEntityException;
 import com.orbis.cinema.inputRequest.RegisterRecord;
 import com.orbis.cinema.mapping.CredentialMapper;
 import com.orbis.cinema.mapping.UserMapper;
@@ -11,9 +13,11 @@ import com.orbis.cinema.repository.CredentialRepository;
 import com.orbis.cinema.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RegisterService {
@@ -22,6 +26,7 @@ public class RegisterService {
     private final CredentialMapper credentialMapper;
     private final CredentialRepository credentialRepository;
     private final UserMapper userMapper;
+    private final LoggerMessageComponent loggerMessageComponent;
 
     private static final Boolean HAS_VERIFIED_EMAIL = false;
 
@@ -31,11 +36,21 @@ public class RegisterService {
 
     @Transactional
     private void makeRegister(RegisterRecord registerRecord){
-        Credential credential = makeCredential(registerRecord.email(), registerRecord.password());
+        String email = registerRecord.email();
+        isEmailAlreadyPresent(email);
+        Credential credential = makeCredential(email, registerRecord.password());
         User user = makeUser(registerRecord.nickName(), credential);
 
         credentialRepository.save(credential);
         userRepository.save(user);
+    }
+
+    private void isEmailAlreadyPresent(String email) {
+        Credential credential = credentialRepository.findByEmail(email);
+        if(credential != null){
+            log.error(loggerMessageComponent.printMessage("email.is.already.present"));
+            throw new DuplicationEntityException("email.is.already.present");
+        }
     }
 
     private Credential makeCredential(String email , String password){
